@@ -1,0 +1,12 @@
+<h1>Update Department Info for : {{department.name}}</h1>
+<form id="update-department" action="/department" method="post">
+    Department Name: <input type="text" name="name" value="{{department.name}}"><br>
+	Managed By: <select name="fkEmpID" id="employee-selector"> 
+        {{#each employees}}
+        <option value="{{id}}">{{empName}}</option>
+        {{/each}}
+	</select><br>
+    Total Sales: $<input type="number" name="totalSales" value="{{department.totalSales}}"><br>
+    Yearly Goal: $<input type="number" name="yearlyGoal" value="{{department.yearlyGoal}}"><br>
+</form>
+<button onclick="updateDepartment({{department.id}})">Update</button>

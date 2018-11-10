@@ -1,0 +1,14 @@
+<h1>Update Product Info for : {{product.productName}}</h1>
+<form id="update-product" action="/product" method="post">
+    Product Name: <input type="text" name="prodName" value="{{product.productName}}"><br>
+    Department: <select name="departmentName" id="department-selector"> 
+        {{#each department}}
+        <option value="{{id}}">{{deptName}}</option>
+        {{/each}}
+	</select><br>
+    Description:  <textarea rows="4" cols="50" form="update-product" name="description">
+	{{product.description}}</textarea><br>
+    Price: <input type="text" name="price" value="{{product.price}}"><br>
+	Stock: <input type="text" name="stock" value="{{product.stock}}"><br>
+</form>
+<button onclick="updateProduct({{product.id}})">Update</button>

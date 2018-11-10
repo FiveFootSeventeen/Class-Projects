@@ -1,0 +1,13 @@
+.id {
+    display:none;
+}
+
+fieldset {
+    display:inline;
+}
+
+#warning {
+    color:red;
+    display:none;
+}
+

@@ -1,0 +1,22 @@
+#!/bin/bash
+#author: Jacob Leno
+#assignment: Project 3
+#date: 05/03/18
+
+f1=outputFile
+
+trap "rm -f project6red; echo ' CTRL+C recieved, exiting'; exit 1" INT HUP TERM
+
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+#printf "${BLUE}Local Work Size of: 32${NC}\n"
+for j in 1024 2048 4096 32768 131072 524288 1048576 2097152 4194304 8388608 #Run the program with various global work sizes between 1K and 8M
+do	
+	printf "${BLUE}Global Work Size of: %d${NC}\n" "$j"
+	g++ -o project6red project6red.cpp /scratch/cuda-7.0/lib64/libOpenCL.so -lm -fopenmp -D  NUM_ELEMENTS=$j
+	./project6red
+done 
+
+rm -f project6red
+

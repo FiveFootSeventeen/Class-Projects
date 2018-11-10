@@ -1,0 +1,32 @@
+Welcome to Cake!
+
+The object of this game is to create portals
+to different areas of the game map that will allow
+you to avoid obstacles and retrieve a key '~' that
+enables you to move onto the next room
+Each room entrance is marked by 'D' and each locked
+exit door is marked by 'L'.
+Your player is moved using the w, a, s, d keys, the
+portal energy gun is fired using 'f' and the user can
+return to the start screen at any time by pressing 'q'.
+%
+Different tiles you encounter will have different properties:
+'O' - The portal tile, teleports to the location of its
+pairing tile on the map
+'#' - The only tile able to recieve a portal, they are uncrossable by
+either the portal gun or player
+'+' - Will not recieve a portal, uncrossable by the player and gun energy 
+'X' - Flip flop tile, this tile will flip between the 'X' (which will 
+not recieve a portal) and the '#'
+"'|' and '_' - Neither will allow the player to cross but will allow gun
+energy to pass over
+'$' - Signify the end of the game, if you can reach this, you win!
+%
+There are several game options:
+Practice - a simple level to practice the game concepts
+Challenge - an ultra challenging level 
+Dungeon - 5 adjoining levels, the player must retrieve the
+key for each room before moving to the next. There are 3 difficulty
+levels that will allow for more or less time to complete each level.
+Good Luck!
+%

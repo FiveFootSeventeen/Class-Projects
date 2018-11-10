@@ -1,0 +1,35 @@
+<h1>Products</h1>
+<table>
+    <thead>
+	<th>Product Name</th>
+        <th>Department</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Stock</th>
+    </thead>
+    <tbody>
+        {{#each product}}
+        <tr>
+            <td>{{productName}}</td>
+            <td>{{deptName}}</td>
+            <td>{{description}}</td>
+            <td>{{price}}</td>
+			<td>{{stock}}</td>
+            <td><button onclick="deleteProduct({{id}})">Delete</button></td>
+            <td><a href="/product/{{id}}">Update</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+    <form id="addproduct" action="/product" method="post">
+    Product Name: <input type="text" name="prodName"><br>
+    Department Name: <select name="departmentName" id="department-selector"> 
+        {{#each department}}
+        <option value="{{id}}">{{deptName}}</option>
+        {{/each}}
+	</select><br>
+    Description: <textarea rows="4" cols="50" form="addproduct" name="description"></textarea><br>
+    Price <input type="text" name="price"><br>
+	Stock <input type="text" name="stock"><br>
+    <input type="submit" value="Submit">
+    </form>
+</table>

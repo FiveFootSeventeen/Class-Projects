@@ -1,0 +1,56 @@
+<h1>Transactions</h1>
+<table>
+    <thead>
+	<th>Product</th>
+	<th>Transaction ID</th>
+        <th>Processed By</th>
+        <th>Customer Name</th>
+        <th>Total Cost</th>
+        <th>Date</th>
+    </thead>
+    <tbody>
+        {{#each transaction}}
+        <tr>
+	    <td>{{productName}}</td>
+            <td>{{id}}</td>
+            <td>{{empName}}</td>
+            <td>{{custName}}</td>
+	    <td>{{#if totalPrice}}{{formatNumber totalPrice style="currency" currency="USD"}}{{/if}}</td>
+	    <td>{{transactionDate}}</td>
+            <td><button onclick="deleteTransaction({{id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+    <form id="addtransaction" action="/transaction" method="post">
+    Customer Name: <select name="customerName" id="customer-selector"> 
+        {{#each customer}}
+        <option value="{{id}}">{{custName}}</option>
+        {{/each}}
+	</select><br>   
+    Employee Name: <select name="employeeName" id="employee-selector"> 
+        {{#each employee}}
+        <option value="{{id}}">{{empName}}</option>
+        {{/each}}
+	</select><br>
+    Product Name<select name="productName" id="product-selector"> 
+        {{#each product}}
+        <option value="{{id}}">{{productName}}</option>
+        {{/each}}
+	</select><br>
+    Total Cost: <input type="text" name="totalPrice"><br>
+    Date: <input type="date" name="date"><br>
+    <input type="submit" value="Submit"><br><br><br>
+    </form>
+	<form id="searchcustomer" action="/transaction/search" method="post">
+	Filter by Customer: <select name="customerName" id="customer-selector"> 
+        {{#each customer}}
+        <option value="{{id}}">{{custName}}</option>
+        {{/each}}
+	</select><br>
+	<input type="submit" value="Submit">
+	</form>
+	<a href="/transaction"><button>Reset</button></a>
+</table>
+
+
+

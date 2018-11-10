@@ -1,0 +1,30 @@
+#!/bin/bash
+#author: Jacob Leno
+#assignment: Project 3
+#date: 05/03/18
+
+
+trap "rm -f project3One, project3Multi; echo ' CTRL+C recieved, exiting'; exit 1" INT HUP TERM
+BLUE='\033[0;34m'
+NC='\033[0m'
+i=0
+while [[ $i -ne 16 ]] #Check results of running the test with padding of 0-15
+do
+	printf "${BLUE}Padding: %d${NC}\n" "$i"
+	echo "Running with 1 thread"
+	g++ -o project3One project_3OneFix1.cpp -lm -fopenmp -D NUMPAD=$i -D NUMT=1
+	time1=$(./project3One)
+	echo "Time: $time1 seconds"
+	
+	for j in 2 4 #Run the file for multiple threads with 2 and 4 threads
+	do
+		echo "Running with $j threads"
+		g++ -o project3Multi project_3MultiFix1.cpp -lm -fopenmp -D NUMPAD=$i -D NUMT=$j
+		timeMany=$(./project3Multi $time1)
+		echo -e $timeMany
+	done 
+	((i++))
+done
+
+rm -f project3One
+rm -f project3Multi

@@ -1,1 +1,1 @@
-Class-Projects
+Class Projects

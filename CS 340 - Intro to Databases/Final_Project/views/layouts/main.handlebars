@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+	<title>CS 340 Final Project</title>
+    <link rel="stylesheet" href="/static/styles.css" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	 crossorigin="anonymous"></script>
+    {{#each jsscripts}}
+    <script src="/static/{{this}}"></script>
+    {{/each}}
+</head>
+<body>
+<div class="content-wrap">
+	<div class="heading">CS 340 Hardware Store Database</div>
+<div class="navbar">
+	<ul>
+		<li><a href="/employee/">Employees</a>
+		<li><a href="/department/">Departments</a>
+		<li><a href="/customer/">Customers</a></li>
+		<li><a href="/product/">Products</a></li>
+		<li><a href="/transaction/">Transactions</a></li>
+	</ul>
+</div><br>
+	{{{body}}}
+</div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+.content-wrap {
+  min-height: 90em;
+  max-width: 85%;
+  margin: 0 auto;
+  padding: 50px;
+  /* overflow: auto; */
+}
+
+@font-face{
+  font-family: Januar;
+  src: url(/fonts/Januar.otf);
+}
+
+h1 {
+  font-family: Januar;
+  font-size: 3em;
+}
+
+h2 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.heading {
+  font-family: Impact, Helvetica, sans-serif;
+  background: #f1f7ee;
+  font-size: 3em;
+  text-align: center;
+  border: .15em
+  solid #81b29a;
+  margin-bottom: .5em;
+}
+
+.content {
+  background-color: #f1f7ee;
+  min-height: 40em;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.container{
+  min-height: 300px;
+}
+
+.proj-container{
+  min-height: 40em;
+}
+
+.col-narrow {
+  width: 10%;
+  float: left;
+  min-height: 175px;
+  margin-left: 3em;
+  margin-top: 3em;
+}
+
+.proj-col-narrow {
+  width: 25%;
+  float: left;
+  min-height: 175px;
+  margin-left: 3em;
+  margin-top: 3em;
+}
+.col-wide {
+  width: 70%;
+  float: left;
+  padding-left: 20px;
+  min-height: 175px;
+}
+
+.profile-img {
+  border-radius: 50%;
+}
+
+.button {
+    background-color: #4f5d2f; /* Green */
+    margin-top: .5em;
+    margin-left: 1em;
+    color: #f1f7ee;
+    padding: 1.5em 5%;
+    text-align: center;
+    font-size: 1em;
+}
+
+.links {
+  font-size: 2em;
+  text-align: center;
+  line-height: 3;
+  font-weight:  bold;
+}
+a:link {
+  text-decoration:  none;
+  color:  #242331;
+}
+
+a:visited {
+    text-decoration:  none;
+    color:  #7f557d;
+}
+
+.slide {
+  display:none;
+}
+
+.larger_image {
+  float: right;
+  width: 80%;
+  height: 50em;
+}
+
+
+.scroll_images {
+  height:50em;
+  width:20%;
+  float: left;
+  overflow-y:scroll;
+}
+
+.scroll_images:hover{
+  cursor:pointer;
+}
+
+#header_photo {
+  margin-bottom: 0;
+}
+
+/*Code adapted from http://htmldog.com/examples/dropdowns3/ */
+
+    .navbar ul {
+      margin-top: 0;
+      margin-bottom: 0;
+			background: #81b29a;
+
+      width: 97.5%;
+			float: left;
+			-webkit-transition: .5s;
+			transition: .5s;
+		}
+
+		.navbar li {
+			float: left;
+			position: relative;
+			width: 150px;
+			list-style: none;
+			-webkit-transition: .5s;
+			transition: .5s;
+		}
+
+    /* Add styling to the links in the navbar */
+		.navbar a {
+			display: block;
+			text-decoration: none;
+			padding: 5px 15px;
+			color: #000;
+		}
+
+    /* Hide dropdown menu items when not hovering over them */
+		.navbar ul ul {
+			position: absolute;
+			left: 0;
+			top: 100%;
+			visibility: hidden;
+			opacity: 0;
+		}
+
+    .navbar li {
+      background: #f1f7ee;
+      font-family: Januar;
+      font-size: 2.5em;
+    }
+
+		.navbar li:hover {
+			background: #ddd;
+		}
+
+    .navbar li li{
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .5em;
+    }
+
+		.navbar li li:hover{
+			background: #bbb;
+		}
+
+    /* When hovering over dropdown show its list */
+		.navbar li:hover ul {
+			visibility: visible;
+			opacity: 1;

@@ -1,0 +1,27 @@
+
+
+<fieldset>
+  <label for="name">Exercise name: <input type="text" id="name" name="name"></label>
+  <label for="name">Reps: <input type="text" id="reps" name="reps"></label>
+  <label for="name">Weight: <input type="text" id="weight" name="weight"></label>
+  <label for="name">Date: <input type="date" id="date" name="date"></label>
+  <br><br>
+  <span>Please select the weight unit: </span>
+  <input type="radio" id="lb" name="unit"><label for="lb">Lbs</label>
+  <input type="radio" id="kg" name="unit"><label for="kg">Kgs</label>
+  <br><br>
+  <input type="submit" id="excerciseSubmit">
+  <span id="warning">You must enter a name for the exercise</span>
+</fieldset>
+<div>
+  <table id="tableContent">
+    <tr>
+	<th class="id">ID</th>
+	<th>Exercise Name</th>
+	<th>Reps</th>
+	<th>Weight</th>
+	<th>Date</th>
+	<th>Units</th>
+    </tr>
+  </table>
+</div>

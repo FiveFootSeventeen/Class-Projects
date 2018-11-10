@@ -1,0 +1,2 @@
+g++ -o project7B simdProject7B.cpp simd.p7b.h simd.p7b.cpp -lm -fopenmp -g
+g++ -o project7B openCLproject7B.cpp /scratch/cuda-7.0/lib64/libOpenCL.so -lm -fopenmp -g

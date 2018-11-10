@@ -1,0 +1,53 @@
+<!-- *********************************************************************
+** Program Filename: AJAX Interactions
+** Author: Jacob Leno
+** Date: 02/16/18
+** Description: This program demonstrates using GET and POST forms to
+** get information from Web APIs
+*********************************************************************-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="UTF-8">
+  <title></title>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>Get Weather</legend>
+        <h3>Please enter either a zip code or a city and a state</h1>
+        <label for="zip">Zip Code:<input type="text" name="zip" id="zip"></label>
+        <br><br><br>
+        <label for="city">City:<input type="text" name="city" id="city"></label>
+        <br>
+        <br>
+        <input type="submit" id="submitData" value="Get Weather">
+      </fieldset>
+    </form>
+    <div>
+      <h2>Current Weather</h2>
+      <ul>
+        <li><span>Requested City: </span><span id="reqCity"></span></li>
+        <li><span>Current Tempurature: </span><span id="currentTemp"></span></li>
+        <li><span>Current Humidty: </span><span id="currentHumidity"></span></li>
+      </ul>
+    </div>
+    <form>
+      <fieldset>
+        <legend>Echo Info</legend>
+        <h3>The text you enter into the text box will be displayed below when submit is clicked</h3>
+        <label for="echo">Enter Text: <input type="text" name = "echo" id="echo"></label>
+        <br>
+        <br>
+        <input type="submit" id="submitText" value="Echo Text">
+        <br>
+      </fieldset>
+    </form>
+    <div>
+      <br>
+      <span>Here is what I got back: </span><span id="echoText"></span>
+    </div>
+  </body>
+</html>

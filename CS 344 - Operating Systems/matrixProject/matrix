@@ -1,0 +1,339 @@
+#!/bin/bash
+
+# Some of my functions take a bit to process but there are not infinite loops
+
+#####################################
+# Program 1 - matrices
+# Author: Jacob Leno
+# Date: 04/23/18
+####################################
+
+TMP1="m1$$"
+TMP2="m2$$"
+TMP3="m3$$"
+TMP4="m4$$"
+trap "rm -f $TMP1, $TMP2, $TMP3, $TMP4; echo ' CTRL+C received, exiting'; exit 1" INT HUP TERM
+
+_RET1=0
+_RET2=0
+
+deleteTemp()
+{
+        rm -f $TMP1
+        rm -f $TMP2
+        rm -f $TMP3
+        rm -f $TMP4
+}
+
+
+
+dims()
+  # NAME
+  #   dims - get the rows and columns of a matrix
+  # SYNOPSIS
+  #   dims MATRIXFILE
+  # DESCRIPTION
+  #  _RET1 will contain rows
+  #  _RET2 will contain columns
+{
+        _RET1=0
+        _RET2=0
+        while read curLine
+        do
+                ((_RET1++))
+                if [[ _RET1 -eq 1 ]]
+                then
+                        wc -w <<< "$curLine" > $TMP1
+                fi
+        done < $1
+        read < $TMP1 _RET2
+}
+  # NAME
+  #  transpose - refect the elements of a metrix along the main diagonal
+  # SYNOPSIS
+  #   transpose MATRIXFILE
+  # DESCRIPTION
+  #  A transposed version of the matrix will be output to the terminal 
+        transpose()
+{
+        dims $1
+        fields=$_RET2
+        i=0
+        while [[ i -ne $fields ]] #for each column change it into a row
+        do
+                ((i++))
+                cut -f $i $1 > $TMP1
+                cat $TMP1 | tr '\n' '\t' > "$TMP2" #remove all newlines from row
+		
+		j=0
+		while [[ j -ne $_RET1 ]] #Cycle through each column but for the last column do not add the extra \t at the end
+		do
+			((j++))
+			tempVal=$(cut -f $j $TMP2)
+			if [[ j -ne $_RET1 ]]
+			then
+				printf "%d\t" "$tempVal" >> $TMP3 #for each value only add a newline if it is the last one
+			else
+				printf "%d\n" "$tempVal" >> $TMP3
+			fi
+		done
+        done
+	cat $TMP3
+}
+
+  # NAME
+  #  mean - returns a 1xN row vector where the first element is the mean of column one
+  #  the second is the mean of column two and so on
+  # SYNOPSIS
+  #   mean MATRIXFILE
+  # DESCRIPTION
+  #  Will output a 1xN row vector that contains the mean of the original file to the terminal
+
+mean()
+{
+
+        dims $1
+        fields=$_RET2
+        rows=$_RET1
+        i=0
+        sum=0
+        average=0
+        while [[ i -ne $fields ]] #extract each column of data in the matrix
+        do
+                ((i++))
+                cut -f $i $1 > $TMP1
+                while read curLine #read the column of data in TMP1 and get its average
+                do
+                        sum=$(($sum + $curLine))
+                done < $TMP1
+                average=$(($(($sum + $(($rows/2))*$(($(($sum>0))*2-1))))/$rows))
+                if [[ i -ne $fields ]] #make sure there isnt a tab at the end of the last value
+                then
+                        printf "%d\t" "$average" >> $TMP2
+                else
+                        printf "%d\n" "$average"  >> $TMP2
+                fi
+                sum=0
+        done
+        cat $TMP2
+}
+
+  # NAME
+  #  add - Takes two MxN matrices and adds them together element-wise to produce an MxN matrix 
+  # SYNOPSIS
+  #   mean MATRIXFILE1 MATRIXFILE2
+  # DESCRIPTION
+  #  Outputs a matrix of the same size as the two input files with the values of each
+  #  corrosponding element of the two matrices summed together. Will return an error if
+  #  matrices are not the same size
+
+add()
+{
+        dims $1
+        row1=$_RET1
+        col1=$_RET2
+        dims $2
+        row2=$_RET1
+        col2=$_RET2
+        if ! [[ $row1 = $row2 ]] && ! [[ $col1 = $col2 ]] #check the rows and columns of the two matrices to see if they can be added
+        then
+                echo "Incorrect matrix dimensions" >&2
+                deleteTemp
+                exit 1
+        fi
+        i=0
+        num1=0
+        while read lineFile1 <&3 && read lineFile2 <&4 #Read from both matrix files consecutively
+        do
+                echo -e "$lineFile1" > $TMP2
+                echo -e "$lineFile2" > $ > $TMP3
+                while [[ i -ne $col1 ]] # for each column in both matrices get corresponding fields and sum them
+                do
+                        ((i++))
+                        num1=$(cut -f $i $TMP2)
+                        num2=$(cut -f $i $TMP3)
+                        sum=$(($num1 + $num2))
+                        if [[ i -ne $col1 ]] #output the result to TMP4 and only add a newline if its the last item on the line
+                        then
+                                printf "%d\t" "$sum" >> $TMP4
+                        else
+                                printf "%d\n" "$sum" >> $TMP4
+                        fi
+                done
+                i=0
+        done 3<$1 4<$2
+        cat $TMP4
+}
+
+  # NAME
+  #  multiply - Takes a MxN and a NxP matrix and produces a MxP matrix.
+  # SYNOPSIS
+  #   mean MATRIXFILE1 MATRIXFILE2
+  # DESCRIPTION
+  #  Outputs the multiplication of the two matrices to the terminal. If the dimensions of the 
+  #  matrices do not allow for multiplication an error will be output
+
+multiply()
+{
+        dims $1
+        row1=$_RET1
+        col1=$_RET2
+        dims $2
+        row2=$_RET1
+        col2=$_RET2
+        i=0
+        if ! [[ $col1 = $row2 ]] #If the columns of the first matrix do not match the columns of the second they cant be multiplied
+        then
+                echo "Incorrect matrix dimensions" >&2
+                deleteTemp
+                exit 1
+        fi
+        while read m1Row #get the rows from matrix 1
+        do
+                echo -e "$m1Row" > $TMP1
+                cat $TMP1 | tr '\n' '\t' > $TMP2
+                while read m2Row #Turn matrix 2 90 degrees so that each row can be accessed using cut
+                do
+                        echo -e "$m2Row" > $TMP1
+                        cat $TMP1 | tr '\n' '\t' >> $TMP3
+                        echo >> $TMP3
+                done <$2
+
+                i=0
+                while [[ i -ne $col2 ]] #for the row in m1 get the columns for the second matrix
+                do
+                        ((i++))
+                        cut -f $i $TMP3 > "$TMP1"
+                        cat $TMP1 | tr '\n' '\t' > "$TMP4"
+                        j=0
+                        sum=0
+                        while [[ j -ne $col1 ]] #compute the dot products and sum outputting to the terminal
+                        do
+                                ((j++))
+                                rowVar=$(cut -f $j $TMP2)
+                                columnVar=$(cut -f $j $TMP4)
+                                sum=$((sum + $((rowVar * columnVar))))
+                        done
+                        if [[ i -ne $col2 ]] #As the sum of each dot product is found output it to the terminal, adding a newline at the end of each line
+                        then
+                                printf "%d\t" "$sum"
+                        else
+                                printf "%d\n" "$sum"
+                        fi
+                done
+        done <$1
+}
+
+# Check though the possible options for the first argument
+
+if [[ "$1" = "dims" ]]
+then
+        if [[ -f $2 ]] && [[ -f $3 ]] #If two regular files are present
+        then
+                echo "Incorrect number of arguments" >&2
+                exit 1
+        elif [[ -f $2 ]] && ! [[ -r $2 ]] #If a regular file is present but it is not readable
+        then
+                echo "File given in argument 1 is not readable" >&2
+                exit 1
+        elif  [[ ! -t 0 ]] #If there is something present in stdin but it is not coming from the terminal 
+        then
+                cat > $TMP4 #Read stdin into a tempfile
+                dims $TMP4
+		printf "$_RET1 $_RET2\n"
+                deleteTemp
+        elif ! [[ -e $2 ]] #If the file named in argument 2 does not exist
+        then
+                echo "File does not exist" >&2
+                exit 1
+        elif    [[ ! -f $2 ]] #If the file named in argument 2 is not a regular file 
+        then
+		echo "Argument is not a regular file" >&2
+		exit 1
+	else
+                dims $2
+		printf "$_RET1 $_RET2\n"
+        fi
+#The following conditionals for transpose and mean are the same as dims
+elif [[ "$1" = "transpose" ]]
+then
+        if [[ -f $2 ]] && [[ -f $3 ]]
+        then
+                echo "Incorrect number of arguments" >&2
+                exit 1
+        elif [[ -f $2 ]] && ! [[ -r $2 ]]
+        then
+                echo "File given in argument 1 is not readable" >&2
+                exit 1
+        elif  [[ ! -t 0 ]] 
+        then
+                cat > $TMP4
+                transpose $TMP4
+                deleteTemp
+        elif ! [[ -e $2 ]]
+        then
+                echo "File does not exist" >&2
+                exit 1
+        elif    [[ ! -f $2 ]]
+        then
+		echo "Argument is not a regular file" >&2
+		exit 1
+	else
+                transpose $2
+        fi
+elif [[ "$1" = "mean" ]]
+then
+        if [[ -f $2 ]] && [[ -f $3 ]]
+        then
+                echo "Incorrect number of arguments" >&2
+                exit 1
+        elif [[ -f $2 ]] && ! [[ -r $2 ]]
+        then
+                echo "File given in argument 1 is not readable" >&2
+                exit 1
+        elif  [[ ! -t 0 ]] 
+        then
+                cat > $TMP4
+                mean $TMP4
+                deleteTemp
+        elif ! [[ -e $2 ]]
+        then
+                echo "File does not exist" >&2
+                exit 1
+        elif    [[ ! -f $2 ]]
+        then
+		echo "Argument is not a regular file" >&2
+		exit 1
+	else
+                mean $2
+        fi
+
+elif [[ "$1" = "add" ]]
+then
+        if [[ -f $2 && -f $3 ]] && ! [[ -f $4 ]] #if argument 2 and 3 are regular files and argument for is not present
+        then
+                add $2 $3 
+        else
+                echo "Invalid File / File Not found / Incorrect number of arguments" >&2
+                exit 1
+        fi
+elif [[ "$1" = "multiply" ]]
+then
+        if [[ -f $2 && -f $3 ]] && ! [[ -f $4 ]] #if argument 2 and 3 are regular files and argument for is not present
+        then
+                multiply $2 $3 
+        else
+                echo "Invalid File / File Not found / Incorrect number of arguments" >&2
+                exit 1
+        fi
+else
+echo "Invalid Operation" >&2
+exit 1
+fi
+
+
+#clean up any remaining temp files
+rm -f $TMP1
+rm -f $TMP2
+rm -f $TMP3
+rm -f $TMP4

@@ -1,0 +1,22 @@
+#!/bin/bash
+#author: Jacob Leno
+#assignment: Project 3
+#date: 05/03/18
+
+trap "rm -f project3One_Fix2, project3Multi_Fix2; echo ' CTRL+C recieved, exiting'; exit 1" INT HUP TERM
+
+echo "Running with 1 thread"
+g++ -o project3One_Fix2 project_3One_Fix2.cpp -lm -fopenmp -D NUMT=1
+time1=$(./project3One_Fix2)
+echo "Thread 1 time was $time1 seconds"
+	
+for j in 2 4 #Run file for multiple threads with 2 and 4 threads
+do
+	echo "Running with $j threads"
+	g++ -o project3Multi_Fix2 project_3Multi_Fix2.cpp -lm -fopenmp -D NUMT=$j
+	timeMany=$(./project3Multi_Fix2 $time1)
+	echo -e $timeMany
+done 
+
+rm -f project3Multi_Fix2
+rm -f project3One_Fix2

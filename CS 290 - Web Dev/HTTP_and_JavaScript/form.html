@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="UTF-8">
+  <title></title>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>Get Weather</legend>
+        <h3>Please enter either a zip code or a city and a state</h1>
+        <label for="zip">Zip Code:<input type="text" name="zip" id="zip"></label>
+        <br><br><br>
+        <label for="city">City:<input type="text" name="city" id="city"></label>
+        <br>
+        <label for="state">State:<input type="text" name="state" id="state"></label>
+        <br>
+        <br>
+        <input type="submit" id="submitData" value="Get Weather">
+      </fieldset>
+    </form>
+    <div>
+      <h2>Current Weather</h2>
+      <ul>
+        <li><span></span>Requested City: <span><span id="reqCity"></li>
+        <li><span></span><span>Current Tempurature: <span id="currentTemp"></li>
+        <li><span></span><span>Current Humidty: <span id="currentHumidity"></li>
+      </ul>
+    </div>
+  </body>
+</html>

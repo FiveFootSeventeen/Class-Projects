@@ -1,0 +1,6 @@
+/* Defines a cleaner look for tables */
+table  { border-collapse: collapse; }
+
+td, th { border: 1px solid black; padding: 3px 8px; }
+
+th     { text-align: left; }

@@ -1,0 +1,24 @@
+
+tbody th {
+  font-weight: normal;
+  font-style: italic;
+}
+tbody tr:nth-of-type(odd) {
+    background: #77966d;
+}
+tbody tr:nth-of-type(even) {
+    background: #948b89;
+}
+#whiteBG {
+  background-color: white;
+}
+.outer-content {
+  width: 75%;
+  padding: 20px;
+  background-color: #fecee9;
+}
+.inner-content{
+  text-align:center;
+  background-color: #accbe1;
+  width: 75%;
+}

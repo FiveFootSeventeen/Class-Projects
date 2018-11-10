@@ -1,0 +1,22 @@
+<!--*********************************************************************
+** Program Filename: homepage
+** Author: Jacob Leno
+** Date: 02/21/18
+** Description: The homepage for the GET and POST Checker assignment
+*********************************************************************-->
+
+<h1>You sent data using a {{dataType}} request</h1> <!--dataType will contain a string describing the way the data was sent-->
+<div>Here is your data: </div>
+<ul>
+    {{#each dataList}} <!--For each item in dataList we iterate over it and display it in a list  -->
+      <li>{{this.pName}}: {{this.pValue}}
+    {{/each}}
+</ul>
+{{#if urlData}}  <!--If urlData contains data then it is a post request and data was included in the URL-->
+<div>Here is the data from the URL
+<ul>
+  {{#each urlData}}
+      <li>{{this.pName}}: {{this.pValue}}
+  {{/each}}
+</ul>
+{{/if}}

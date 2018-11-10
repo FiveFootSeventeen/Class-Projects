@@ -1,0 +1,28 @@
+<h1>Customers</h1>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+    </thead>
+    <tbody>
+        {{#each customer}}
+        <tr>
+            <td>{{custName}}</td>
+            <td>{{custAddress}}</td>
+            <td>{{custPhoneNumber}}</td>
+            <td>{{custEmail}}</td>
+            <td><button onclick="deleteCustomer({{id}})">Delete</button></td>
+            <td><a href="/customer/{{id}}">Update</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+    <form id="addcustomer" action="/customer" method="post">
+    Name: <input type="text" name="name"><br>
+    Address: <input type="text" name="address"><br>
+    Phone Number: <input type="tel" name="phoneNumber"><br>
+    Email <input type="email" name="email"><br>
+    <input type="submit" value="Submit">
+    </form>
+</table>

@@ -1,0 +1,35 @@
+<script src="/static/getAvailableDepartments.js"></script>
+<h1>Departments</h1>
+<table>
+    <thead>
+        <th>Deparment ID</th>
+        <th>Name</th>
+        <th>Manager</th>
+        <th>Total Sales</th>
+        <th>Yearly Goal</th>
+	</thead>
+    <tbody>
+        {{#each departments}}
+        <tr>
+            <td>{{id}}</td>
+            <td class="deptName">{{name}}</td>
+            <td>{{empName}}</td>
+            <td>{{totalSales}}</td>
+            <td>{{yearlyGoal}}</td>
+	    <td><a href="/department/{{id}}" class="button">Update</a></td>
+	    </select></td>
+        </tr>
+        {{/each}}
+    </tbody>
+    <form id="adddepartment" action="/department" method="post">
+    Name: <input type="text" name="name"><br>
+    Manager: <select name="fkEmpID" id="employee-selector"> 
+        {{#each employees}}
+        <option value="{{id}}">{{empName}}</option>
+        {{/each}}
+	</select><br>
+    Total Sales: <input type="number" name="totalSales"><br>
+    Yearly Goal: <input type="number" name="yearlyGoal"><br>
+    <input type="submit" value="Submit">
+    </form>
+</table>

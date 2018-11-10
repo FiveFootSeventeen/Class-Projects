@@ -1,0 +1,32 @@
+<h1>Employees</h1>
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Hourly Rate</th>
+    </thead>
+    <tbody>
+        {{#each employees}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{empName}}</td>
+            <td>{{empAddress}}</td>
+            <td>{{empPhoneNumber}}</td>
+            <td>{{empEmail}}</td>
+            <td>{{hourlyRate}}</td>
+            <td><a href="/employee/{{id}}">Update</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+    <form id="addemployee" action="/employee" method="post">
+    Name: <input type="text" name="name"><br>
+    Address: <input type="text" name="address"><br>
+    Phone Number: <input type="tel" name="phoneNumber"><br>
+    Email <input type="email" name="email"><br>
+    Hourly Rate <input type="number" name="hourlyRate"><br>
+    <input type="submit" value="Submit">
+    </form>
+</table>
