@@ -3,8 +3,7 @@
 ** Title: main.js
 ** Author: Jacob Leno
 ** Date: 03/16/18
-** Main page directs requests to requested page. This code has been adapted from 
-** example code given by instructor.
+** Main page directs requests to requested page. 
 *********************************************************************
 */
 
