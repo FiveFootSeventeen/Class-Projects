@@ -3,8 +3,7 @@
 ** Title: product.js
 ** Author: Jacob Leno
 ** Date: 03/16/18
-** Handlers for product page. This code has been adapted from 
-** example code given by instructor.
+** Handlers for product page. 
 *********************************************************************
 */
 
