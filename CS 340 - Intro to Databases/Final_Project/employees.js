@@ -3,8 +3,7 @@
 ** Title: employees.js
 ** Author: Jacob Leno
 ** Date: 03/16/18
-** Handlers for employee page. This code has been adapted from 
-** example code given by instructor.
+** Handlers for employee page.
 *********************************************************************
 */
 
