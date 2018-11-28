@@ -9,8 +9,8 @@
 #ifndef GAMEPLAY_HPP
 #define GAMEPLAY_HPP
 
-#ifdef _WIN32					//This code was borrowed from a piazza post by Harlan James
-#include <stdlib.h>				//https://piazza.com/class/j6zp57dd1bh3uy?cid=391
+#ifdef _WIN32					
+#include <stdlib.h>				
 #include <curses.h>
 #define CLEAR()	system("CLS")
 #elif __linux__
